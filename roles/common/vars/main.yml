@@ -1,0 +1,54 @@
+---
+
+timezone: America/Sao_Paulo
+
+username: infra
+
+user_password_sha: $6$gi1paoz9DyL5G3ht$3.QlySQkNmZqjEEg8Z.1/J22SWqVrpSZvHHJX/A6d9DzV3I15UJYEqgM/dLmWCBSZtUYTw.u1VSkf8FeI3sRh0
+
+root_password_sha: $6$9QGD4k.MQSK7Eo8w$1I8J/s7V7..OeLvI5v/Vf9X/eQGjF6bpy7nkCCVURSq4NRHEhlE4hdBb32YZ2xTJdLnXhjmP.NIFgs7irAEkk/
+
+key_pub: ansible-key.pub
+
+redhat_packages:
+  - bind-utils
+  - net-tools
+  - tcpdump
+  - nmap
+  - tree
+  - telnet
+  - vim
+  - git
+  - mtr
+  - unzip
+
+debian_packages:
+  - sudo
+  - acl
+  - net-tools
+  - htop
+  - screen
+  - tcpdump
+  - nmap
+  - tree
+  - telnet
+  - vim
+  - git
+  - mtr
+  - unzip
+
+zabbix_url:
+  - https://repo.zabbix.com/zabbix/6.0/rhel/8/x86_64/zabbix-release-6.0-4.el8.noarch.rpm
+
+zabbix_packages:
+  - zabbix-server-mysql
+  - zabbix-web-mysql
+  - zabbix-apache-conf
+  - zabbix-sql-scripts
+  - zabbix-selinux-policy
+  - zabbix-agent
+
+db_name: zabbix
+
+db_root_password_sha: $6$lutUCzICw8Io5OIO$0.PnbUv.FCxCMuWjs9vz1DvJT2qUYpKsIaQ0RhmczVofolp83nSh5EZH2Qhw8cbyn2ni9YWxEubmX.QXoQPS41
+...

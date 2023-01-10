@@ -1,0 +1,56 @@
+---
+
+- name: Set timezone
+  file: src=/usr/share/zoneinfo/{{ timezone }} dest=/etc/localtime state=link force=yes
+
+- name: Red Hat like - Install epel-repository
+  dnf: name=epel-release state=latest
+  when: ansible_distribution == 'AlmaLinux' or ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
+
+- name: Red Hat like -  Update system
+  dnf: name=* state=latest security=yes
+  when: ansible_distribution == 'AlmaLinux' or ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
+
+- name: Red Hat like - Install common packages
+  dnf: name={{ redhat_packages }} state=latest
+  when: ansible_distribution == 'AlmaLinux' or ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
+
+- name: Debian like - Update cache
+  apt: update_cache=yes
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+- name: Debian like - Update system
+  apt: name=* state=latest
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+- name: Debian like - Install common packages
+  apt: name={{ debian_packages }} state=latest
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+- name: Add user
+  user:
+    name={{ username }}
+    comment="{{ username }}"
+    shell=/bin/bash
+    home=/home/{{ username }}
+    password={{ user_password_sha }}  
+
+- name: Create SSH key to user
+  command: ssh-keygen -b 2048 -t rsa -f /home/{{ username }}/.ssh/id_rsa -N ''
+  args:
+    creates: /home/{{ username }}/.ssh/id_rsa
+  become: yes
+  become_user: "{{ username }}"
+
+- name: Set authorized keys to user
+  authorized_key:
+    user: "{{ username }}"
+    state: present
+    key: "{{ lookup('file', '{{ key_pub }}') }}"
+  notify:
+    - Restart sshd
+
+- name: Change root password
+  user: name=root update_password=always password={{ root_password_sha }}
+
+...

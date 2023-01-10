@@ -1,0 +1,4 @@
+- name: Default Playbook
+  hosts: all
+  roles:
+    - common

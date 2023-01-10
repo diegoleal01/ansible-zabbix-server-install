@@ -1,0 +1,3 @@
+hosts
+ansible-key.pub
+.travis.yml

@@ -1,0 +1,17 @@
+---
+
+- name: Add Zabbix repository
+  yum_repository:
+    name: zabbix
+    description: Zabbix repository
+    baseurl: "{{ zabbix_url }}"
+
+- name: Clean cache
+  command: clean all
+
+- name: Install Zabbix kit
+  dnf:
+    name: "{{ zabbix_packages }}"
+    state: present
+    
+...

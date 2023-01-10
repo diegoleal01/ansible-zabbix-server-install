@@ -1,0 +1,9 @@
+---
+
+- name: Restart sshd
+  systemd: name=sshd state=restarted enabled=yes daemon_reload=yes
+
+- name: Restart mysqld
+  systemd: name=mysqld state=restarted enabled=yes daemon_reload=yes
+
+...

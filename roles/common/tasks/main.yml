@@ -1,0 +1,7 @@
+---
+
+- import_tasks: common_settings.yml
+- import_tasks: zabbix.yml
+#- import_tasks: mysql.yml
+
+...
